@@ -5,6 +5,7 @@ Python implementation uses PyTorch framework and OpenCV library.
 Model training and evaluation have been tested under Ubuntu 18.04 using OpenCV 4.1.1, PyTorch 1.3.1, Tensorboard 2.1.0
 
 Evaluation example for model with pretrained backbone (MobileNet-v2) and trained (on Pascal VOC-2012 dataset) classification and regression heads
+
 ![Alt text](attachments/ssd_demo.gif?raw=true "Model's evaluation without NMS")
 
 
