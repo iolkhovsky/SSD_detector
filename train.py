@@ -56,6 +56,9 @@ def parse_cmd_args():
     parser.add_argument("--dset_cache", type=int, default=100,
                         help="Percentage of dataset keeped in cache")
     parser.add_argument("--visual_conf_thresh", type=float, default=0.5)
+    parser.add_argument("--use_scheduler", type=int, default=1)
+    parser.add_argument("--lr_lambda", type=float, default=0.95)
+    parser.add_argument("--lr_step_period", type=int, default=1)
     args = parser.parse_args()
     return args
 
@@ -187,7 +190,8 @@ def train_ssd(model, train_dataloader, val_dataloader, validation_period_batches
             logger("****************Iteration summary****************", caller="training script")
             logger.log_dict(summary_dict, caller="training script")
             global_step += 1
-        scheduler.step()
+        if scheduler is not None:
+            scheduler.step()
         logger.log_dict(f"Epoch #{e} completed", caller="training script")
 
 
@@ -234,7 +238,9 @@ def main():
 
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     train_logger("Loaded optimizer: ", optimizer, caller="training script")
-    scheduler = LambdaLR(optimizer, lr_lambda=lambda epoch: 0.95 ** epoch)
+    scheduler = None
+    if args.use_scheduler:
+        scheduler = LambdaLR(optimizer, lr_lambda=lambda epoch: args.lr_lambda ** (epoch // args.lr_step_period))
     torch.autograd.set_detect_anomaly(True)
 
     batches_per_epochs = len(trainval_dataset) / args.train_batch_size

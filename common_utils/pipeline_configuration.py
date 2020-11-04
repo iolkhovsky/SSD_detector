@@ -56,6 +56,12 @@ def parse_pipeline(pipeline_path, default=None):
             default.lr = float(training_config["learning_rate"])
         if "optimizer" in training_config.keys():
             default.optimizer = training_config["optimizer"]
+        if "scheduler" in training_config.keys():
+            default.use_scheduler = int(training_config["scheduler"])
+        if "lr_lambda" in training_config.keys():
+            default.lr_lambda = float(training_config["lr_lambda"])
+        if "scheduler_period" in training_config.keys():
+            default.lr_step_period = int(training_config["scheduler_period"])
     if "validation" in yml_dict.keys():
         validation_config = yml_dict["validation"]
         if "batch_size" in validation_config.keys():
