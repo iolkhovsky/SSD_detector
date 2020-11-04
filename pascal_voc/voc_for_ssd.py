@@ -38,6 +38,9 @@ class VocDetectionSSD:
         else:
             raise ValueError("Invalid index(-ices) to __get_item__ method")
 
+    def __str__(self):
+        return "Pascal VOC dataset for detection from " + str(self.index)
+
     def __make_sample(self, idx):
         # in image
         sample_desc = self.index[idx]

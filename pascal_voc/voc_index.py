@@ -56,7 +56,7 @@ class VocIndex:
             raise RuntimeError("Index root hasnt defined for Index<" + str(self.__index_name) + ">")
         if self.__root is not None and isdir(self.__root):
             self.__annotations = get_files_list(path=self.__root + "/Annotations", filter_key=".xml")
-            if self.__sz_limit is not None:
+            if self.__sz_limit:
                 # shuffle annotations list
                 random.shuffle(self.__annotations)
                 # get clipped list

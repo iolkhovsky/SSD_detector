@@ -29,9 +29,10 @@ def decode_input_tensor(input_batch):
     return out
 
 
-def visualize_prediction_target(input_batch, prediction_batch, target_batch, codec, id2class, to_tensors=False):
-    detections = decode_prediction(prediction_batch, codec, id2class, prediction=True)
-    gtruth = decode_prediction(target_batch, codec, id2class, prediction=False)
+def visualize_prediction_target(input_batch, prediction_batch, target_batch, codec, id2class, to_tensors=False,
+                                threshold=0.5):
+    detections = decode_prediction(prediction_batch, codec, id2class, prediction=True, threshold=threshold)
+    gtruth = decode_prediction(target_batch, codec, id2class, prediction=False, threshold=threshold)
     images = decode_input_tensor(input_batch)
     tgt_imgs = make_pred_images(images, gtruth, to_tensors)
     pred_imgs = make_pred_images(images, detections, to_tensors)

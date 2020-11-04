@@ -1,0 +1,23 @@
+model:
+  checkpoint: None
+  pretrained_backbone: 1
+  train_backbone: 1
+dataset:
+  path: "/home/igor/datasets/VOC_2007/trainval"
+  size_limit: 320
+  cache: 100
+training:
+  epoch_limit: 60
+  batch_size: 32
+  learning_rate: 1e-3
+  optimizer: Adam
+validation:
+  batch_size: 8
+  period: 10
+  unit: batch
+  visualiz_conf_threshold: 0.3
+autosave:
+  period: 10
+  unit: batch
+gpu:
+  enable: 0

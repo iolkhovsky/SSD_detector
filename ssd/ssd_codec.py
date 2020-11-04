@@ -220,7 +220,7 @@ class SSDCodec:
 
                         if prediction:  # inference: detection is the most prob class
                             # probs_smax = custom_softmax(probs)
-                            probs_smax = torch.nn.functional.softmax(torch.from_numpy(probs)).numpy()
+                            probs_smax = torch.nn.functional.softmax(torch.from_numpy(probs), dim=0).numpy()
                             det.id = np.argmax(probs_smax)
                             det.p = probs_smax[det.id]
                             if det.id != classes_cnt - 1:
