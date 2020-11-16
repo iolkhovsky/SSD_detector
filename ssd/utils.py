@@ -18,15 +18,8 @@ def compile_checkpoint_name(name, hint=None):
     return file_name
 
 
-def load_model(path, logger=None):
-    if MODELS_REPOSITORY_PATH not in path:
-        if logger:
-            logger("Warning: Wrong path to models repository -> adding prefix automatically")
-    path = MODELS_REPOSITORY_PATH + path
-    if logger:
-        logger("Loading model: "+path)
-    torch_model = torch.load(path)
-    return torch_model
+def load_model(path):
+    return torch.load(path)
 
 
 def save_model(torch_model, convert_to_cpu=True, hint=None, logger=None):

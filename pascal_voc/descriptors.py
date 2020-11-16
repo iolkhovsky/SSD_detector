@@ -44,3 +44,6 @@ class DetectionDescriptor:
         self.p = None
         self.id = None
         self.label = None
+
+    def __str__(self):
+        return f"Id {self.id}, P: {self.p}, box: [{self.x}, {self.y}, {self.w}, {self.h}]"

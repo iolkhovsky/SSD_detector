@@ -1,6 +1,7 @@
 from common_utils.visualization import *
 from common_utils.tensor_transform import *
 from common_utils.bbox import *
+from common_utils.nms import non_max_suppression
 
 
 def decode_prediction(prediction_batch, codec, id2class, prediction=False, threshold=0.5):
@@ -39,8 +40,11 @@ def visualize_prediction_target(input_batch, prediction_batch, target_batch, cod
     return pred_imgs, tgt_imgs
 
 
-def visualize_inference(input_batch, output_batch, codec, id2class, prediction=False, to_tensors=False, prob_thr=0.0):
+def visualize_inference(input_batch, output_batch, codec, id2class, prediction=False, to_tensors=False, prob_thr=0.0,
+                        nms=False):
     detections = decode_prediction(output_batch, codec, id2class, prediction=prediction, threshold=prob_thr)
+    if nms:
+        detections = non_max_suppression(detections)
     images = decode_input_tensor(input_batch)
     pred_imgs = make_pred_images(images, detections, to_tensors)
     return pred_imgs
